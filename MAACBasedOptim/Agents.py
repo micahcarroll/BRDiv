@@ -195,7 +195,7 @@ class Agents(object):
         batch_size, num_agents = obs_w_commands.size()[0], obs_w_commands.size()[1]
 
         if self.parameter_sharing or self.separate_model_in_populations:
-            in_population_agent_id = torch.eye(num_agents).repeat(batch_size, 1, 1)
+            in_population_agent_id = torch.eye(num_agents).repeat(batch_size, 1, 1).to(self.device)
             obs_w_commands = torch.cat([obs_w_commands, in_population_agent_id], dim=-1)
 
         if self.separate_model_in_populations:
