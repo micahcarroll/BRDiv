@@ -265,7 +265,7 @@ class Agents(object):
             pop_annot[:, :, idx] = 1.0
 
             if self.parameter_sharing or self.separate_model_in_populations:
-                comparator_input = torch.cat([original_states, pop_annot, torch.eye(self.num_agents).repeat(original_states.size()[0],1,1)], dim=-1)
+                comparator_input = torch.cat([original_states, pop_annot, torch.eye(self.num_agents).repeat(original_states.size()[0],1,1).to(self.device)], dim=-1)
             else:
                 comparator_input = torch.cat([original_states, pop_annot], dim=-1)
 
@@ -475,7 +475,7 @@ class Agents(object):
 
             xp_input = torch.cat([r_obs_only, one_hot_id_all], dim=-1)
             if not self.parameter_sharing:
-                xp_input = torch.cat([xp_input, torch.eye(self.num_agents).repeat(xp_input.size()[0], 1, 1)], dim=-1)
+                xp_input = torch.cat([xp_input, torch.eye(self.num_agents).repeat(xp_input.size()[0], 1, 1).to(self.device)], dim=-1)
 
             xp_value_input_graph = None
 
@@ -606,7 +606,7 @@ class Agents(object):
             batch_size = xp_critic_state_input.size()[0]
             if not self.parameter_sharing:
                 xp_critic_state_input = torch.cat(
-                    [xp_critic_state_input, torch.eye(self.num_agents).repeat([batch_size, 1, 1])],
+                    [xp_critic_state_input, torch.eye(self.num_agents).repeat([batch_size, 1, 1]).to(self.device)],
                     dim=-1
                 )
 
@@ -627,7 +627,7 @@ class Agents(object):
 
                 if not self.parameter_sharing:
                     xp_critic_n_state_input = torch.cat(
-                        [xp_critic_n_state_input, torch.eye(self.num_agents).repeat([batch_size, 1, 1])],
+                        [xp_critic_n_state_input, torch.eye(self.num_agents).repeat([batch_size, 1, 1]).to(self.device)],
                         dim=-1
                     )
 
@@ -657,7 +657,7 @@ class Agents(object):
 
             xp_input = torch.cat([r_xp_obs_only, one_hot_id_all], dim=-1)
             if not self.parameter_sharing:
-                xp_input = torch.cat([xp_input, torch.eye(self.num_agents).repeat(xp_input.size()[0], 1, 1)], dim=-1)
+                xp_input = torch.cat([xp_input, torch.eye(self.num_agents).repeat(xp_input.size()[0], 1, 1).to(self.device)], dim=-1)
 
             xp_value_input_graph = None
 
@@ -696,7 +696,7 @@ class Agents(object):
 
             if not self.parameter_sharing:
                 xp_act_log_input = torch.cat(
-                    [xp_act_log_input, torch.eye(self.num_agents).repeat(xp_act_log_input.size()[0], 1, 1)],
+                    [xp_act_log_input, torch.eye(self.num_agents).repeat(xp_act_log_input.size()[0], 1, 1).to(self.device)],
                     dim=-1
                 )
 
