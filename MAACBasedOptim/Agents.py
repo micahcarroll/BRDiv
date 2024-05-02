@@ -449,8 +449,8 @@ class Agents(object):
             n_obs_idx = n_obs_batch[:,idx,:,:]
 
             if not self.parameter_sharing:
-                obs_idx = torch.cat([obs_batch[:,idx,:,:], torch.eye(self.num_agents).repeat(batch_size,1,1)], dim=-1)
-                n_obs_idx = torch.cat([n_obs_batch[:,idx,:,:], torch.eye(self.num_agents).repeat(batch_size, 1, 1)], dim=-1)
+                obs_idx = torch.cat([obs_batch[:,idx,:,:], torch.eye(self.num_agents).repeat(batch_size,1,1).to(self.device)], dim=-1)
+                n_obs_idx = torch.cat([n_obs_batch[:,idx,:,:], torch.eye(self.num_agents).repeat(batch_size, 1, 1).to(self.device)], dim=-1)
 
             sp_v_values = self.joint_action_value_function(obs_idx.view(obs_idx.size(0), 1, -1).squeeze(1))
 
